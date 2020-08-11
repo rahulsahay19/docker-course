@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  sql.data:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+  moviesdockerdemo:
+    image: ${DOCKER_REGISTRY-}moviesdockerdemo
+    build:
+      context: .
+      dockerfile: MoviesDockerDemo/Dockerfile
