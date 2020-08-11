@@ -1,20 +1,11 @@
 version: '3.4'
 
 services:
-  sql.data:
-    container_name: sql.data
-    environment:
-      - SA_PASSWORD=Docker@1
-      - ACCEPT_EULA=Y
+  moviesapi:
     ports:
-      - "1455:1433"
-    volumes:
-      - ${MOVIE_DB_PATH}/data:/var/opt/mssql/data
-  moviesdockerdemo:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings__MovieConnection=Server=sql.data;Database=MovieDb;User Id=sa;Password=Docker@1"
+      - 5001:80  
+      
+  moviesapp:
     ports:
-      - "7005:80"
-    depends_on:
-      - sql.data
+      - "4300:80"        
+  

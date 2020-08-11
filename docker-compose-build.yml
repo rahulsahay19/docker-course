@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  moviesapi:
+    build: 
+      context: .
+      dockerfile: MoviesAPI/Dockerfile
+    container_name: moviesapi-build
+    
+  moviesapp:
+    build:
+      context: ./MoviesApp
+      dockerfile: Dockerfile
+    container_name: moviesapp-build
+    depends_on:
+      - moviesapi
+

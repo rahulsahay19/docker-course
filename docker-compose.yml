@@ -1,10 +1,10 @@
 version: '3.4'
 
 services:
-  sql.data:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-  moviesdockerdemo:
-    image: ${DOCKER_REGISTRY-}moviesdockerdemo
-    build:
-      context: .
-      dockerfile: MoviesDockerDemo/Dockerfile
+  moviesapi:
+    image: ${DOCKER_REGISTRY}moviesapi:dev
+    container_name: moviesapi
+    
+  moviesapp:
+    image: ${DOCKER_REGISTRY}moviesapp:dev
+    container_name: moviesapp   
