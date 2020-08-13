@@ -16,10 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: workdir
+      working-directory: ../
     - name: docker build
       run: |
-        echo pwd
-        docker build ./MoviesAPI -t movies.azurecr.io/moviesapi:1.0.0
+       docker build ./MoviesAPI -t movies.azurecr.io/moviesapi:1.0.0
     - name: docker build nodejs
       run: |
        docker build ./MoviesApp -t movies.azurecr.io/moviesapp:1.0.0 
