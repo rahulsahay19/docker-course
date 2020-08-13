@@ -19,7 +19,7 @@ jobs:
     - name: docker build
       working-directory: ./
       run: |
-       cd  MoviesApi
+       cd  MoviesAPI
        docker build -t movies.azurecr.io/moviesapi:1.0.0
     - name: docker build nodejs
       run: |
