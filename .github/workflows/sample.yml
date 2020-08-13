@@ -25,4 +25,4 @@ jobs:
       uses: docker/build-push-action@v1.1.0
       with:
         path: .
-        dockerfile: MoviesApi/Dockerfile 
+        dockerfile: ./MoviesApi/Dockerfile 
