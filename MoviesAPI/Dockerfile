@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 RUN pwd
+RUN ls
 COPY ["MoviesAPI/MoviesAPI.csproj", "MoviesAPI/"]
 COPY ["Movies.Shared/Movies.Shared.csproj", "Movies.Shared/"]
 
