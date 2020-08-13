@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: docker build
       run: 
-        docker build ./MoviesAPI -t movies.azurecr.io/moviesapi:1.0.0
+        docker build -t movies.azurecr.io/moviesapi:1.0.0 -f MoviesApi/Dockerfile .
     - name: docker build nodejs
       run:
-       docker build ./MoviesApp -t movies.azurecr.io/moviesapp:1.0.0 
+       docker build -t movies.azurecr.io/moviesapp:1.0.0 -f MoviesApp/Dockerfile .
