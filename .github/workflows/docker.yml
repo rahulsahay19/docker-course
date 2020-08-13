@@ -20,8 +20,8 @@ jobs:
       working-directory: ./
       run: |
        cd  MoviesAPI
-       docker build -t movies.azurecr.io/moviesapi:1.0.0
+       docker build -t movies.azurecr.io/moviesapi:1.0.0 .
     - name: docker build nodejs
       run: |
        cd MoviesApp
-       docker build -t movies.azurecr.io/moviesapp:1.0.0 
+       docker build -t movies.azurecr.io/moviesapp:1.0.0 .
