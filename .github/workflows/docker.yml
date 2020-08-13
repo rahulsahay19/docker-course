@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: docker build
-      working-directory: ../
+      working-directory: ./
       run: |
        docker build ./MoviesAPI -t movies.azurecr.io/moviesapi:1.0.0
     - name: docker build nodejs
