@@ -1,0 +1,24 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the angular-dotnet branch
+on:
+  push:
+    branches: [ angular-dotnet ]
+  pull_request:
+    branches: [ angular-dotnet ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker build
+      run: 
+        docker build ./MoviesAPI/Dockerfile
+    - name: docker build nodejs
+      run:
+       docker build ./MoviesApp/Dockerfile
