@@ -18,6 +18,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: docker build
       run: |
+        echo $pwd
         docker build ./MoviesAPI -t movies.azurecr.io/moviesapi:1.0.0
     - name: docker build nodejs
       run: |
