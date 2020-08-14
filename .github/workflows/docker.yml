@@ -12,10 +12,13 @@ on:
 
 
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# A workflow which runs in all three different OS.
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-18.04]
     steps:
     - uses: actions/checkout@v2
     
@@ -28,13 +31,12 @@ jobs:
         password:  ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
      
      # Build and push the image to Container Registry
-    - name: Build and Push container to registry
+    - name: Build and Push moviesapi to registry
       run: |
            docker build --file=MoviesAPI/Dockerfile -t ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }} .
            docker push ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
-     
-     # Azure SP authentication    
-    - name: Azure Service Principal Authentication
-      uses: azure/login@v1
-      with:
-       creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Build and Push moviesapp to registry
+      run: |
+           docker build --file=MoviesApp/Dockerfile -t ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }} .
+           docker push ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
+  
