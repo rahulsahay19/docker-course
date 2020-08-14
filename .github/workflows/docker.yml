@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build and Deploy Docker Container Azure
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the angular-dotnet branch
@@ -10,18 +10,31 @@ on:
   pull_request:
     branches: [ angular-dotnet ]
 
+
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: docker build
-      working-directory: ./
+    
+    # Use docker login to log into ACR
+    - name: Docker login to ACR
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.CONTAINER_REGISTRY_NAME }}
+        username:  ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+        password:  ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
+     
+     # Build and push the image to Container Registry
+    - name: Build and Push container to registry
       run: |
-       cd  MoviesAPI
-       docker build -t movies.azurecr.io/moviesapi:1.0.0 .
-    - name: docker build nodejs
-      run: |
-       cd MoviesApp
-       docker build -t movies.azurecr.io/moviesapp:1.0.0 .
+           docker build --file=MoviesAPI/Dockerfile -t ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }} .
+           docker push ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
+     
+     # Azure SP authentication    
+    - name: Azure Service Principal Authentication
+      uses: azure/login@v1
+      with:
+       creds: ${{ secrets.AZURE_CREDENTIALS }}
