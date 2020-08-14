@@ -15,10 +15,7 @@ on:
 # A workflow which runs in all three different OS.
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest, ubuntu-18.04]
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     
