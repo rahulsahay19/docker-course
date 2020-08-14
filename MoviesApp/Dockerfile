@@ -4,7 +4,8 @@ FROM node:alpine as node
 WORKDIR /src
 COPY . .
 
-RUN npm install && npm run build
+#RUN npm install && npm run build
+RUN rm -f package-lock.json && npm install
 
 # Run Stage
 FROM nginx:alpine
