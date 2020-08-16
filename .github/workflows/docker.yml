@@ -28,3 +28,16 @@ jobs:
       run: |
            docker build --file=MoviesAPI/Dockerfile -t ${{secrets.CONTAINER_REGISTRY_NAME}}/${{secrets.IMAGE_NAME}}:${{ github.sha }} .
            docker push ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
+           
+      # Use docker login to log into Dockerhub
+    - name: Docker login to Dokcerhub
+      uses: azure/docker-login@v1
+      with:
+       username: ${{secrets.CONTAINER_DOCKER_USERNAME}}
+       password: ${{ secrets.CONTAINER_DOCKER_PASSWORD }}
+       
+       # Build and push the image to Dockerhub
+    - name: Build and Push to Dockerhub
+      run: |
+           docker build --file=MoviesAPI/Dockerfile -t ${{secrets.CONTAINER_DOCKER_USERNAME}}/${{secrets.IMAGE_NAME}}:${{ github.sha }} .
+           docker push ${{ secrets.CONTAINER_DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
