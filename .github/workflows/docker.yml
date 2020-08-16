@@ -18,6 +18,7 @@ jobs:
     
     # Use docker login to log into ACR
     - name: Docker login to ACR
+      uses: azure/docker-login@v1
       with:
        login-server: ${{secrets.CONTAINER_REGISTRY_NAME}}
        username: ${{secrets.CONTAINER_REGISTRY_USERNAME}}
