@@ -17,25 +17,22 @@ jobs:
     - uses: actions/checkout@v2
     
     # Use docker login to log into ACR
-   ## - name: Docker login to ACR
-     # uses: azure/docker-login@v1
-     # with:
-      # login-server: ${{secrets.CONTAINER_REGISTRY_NAME}}
-      # username: ${{secrets.CONTAINER_REGISTRY_USERNAME}}
-      # password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
-     # Build and push the image to Container Registry
-   # - name: Build and Push to Container Registry
-    #  run: |
-     #      docker build --file=MoviesAPI/Dockerfile -t ${{secrets.CONTAINER_REGISTRY_NAME}}/${{secrets.IMAGE_NAME}}:${{ github.sha }} .
-      #     docker push ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
-           
-      # Use docker login to log into Dockerhub
-    - name: Docker login to Dokcerhub
+    - name: Docker login to ACR
       uses: azure/docker-login@v1
       with:
-       username: ${{secrets.CONTAINER_DOCKER_USERNAME}}
-       password: ${{ secrets.CONTAINER_DOCKER_PASSWORD }}
-       
+       login-server: ${{secrets.CONTAINER_REGISTRY_NAME}}
+       username: ${{secrets.CONTAINER_REGISTRY_USERNAME}}
+       password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
+     # Build and push the image to Container Registry
+    - name: Build and Push to Container Registry
+      run: |
+           docker build --file=MoviesAPI/Dockerfile -t ${{secrets.CONTAINER_REGISTRY_NAME}}/${{secrets.IMAGE_NAME}}:${{ github.sha }} .
+           docker push ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
+           
+     # Docker hub section
+     
+    - name: Login to DockerHub Registry
+      run: echo ${{ secrets.CONTAINER_DOCKER_PASSWORD }} | docker login -u ${{ secrets.CONTAINER_DOCKER_USERNAME }} --password-stdin
        # Build and push the image to Dockerhub
     - name: Build and Push to Dockerhub
       run: |
