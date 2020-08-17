@@ -27,13 +27,5 @@ jobs:
     - name: Build and Push to Container Registry
       run: |
            docker build --file=MoviesAPI/Dockerfile -t ${{secrets.CONTAINER_REGISTRY_NAME}}/${{secrets.IMAGE_NAME}}:${{ github.sha }} .
-           docker push ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
-           
-     # Docker hub section
-    - name: Docker login
-      run: docker login -u ${{ secrets.CONTAINER_DOCKER_USERNAME }} -p ${{ secrets.CONTAINER_DOCKER_PASSWORD }}
-    
-    - name: Build and Push to Dockerhub
-      run: |
-           docker build --file=MoviesAPI/Dockerfile -t ${{secrets.CONTAINER_DOCKER_USERNAME}}/${{secrets.IMAGE_NAME}}:${{ github.sha }} .
-           docker push ${{ secrets.CONTAINER_DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}
+           docker push ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}           
+   
