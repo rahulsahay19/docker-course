@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  httpssample:
+    environment:
+      - ASPNETCORE_HTTPS_PORT=8084
+      - ASPNETCORE_URLS="https://+:443;http://+:80"
+      - Kestrel__Certificates__Default__Path=/root/.dotnet/https/samplewebapp.pfx
+      - Kestrel__Certificates__Default__Password=Pa$$word!
+    ports:
+      - "8083:80"
+      - "8084:443"
+    volumes:
+      - ${CERT_PATH}:/root/.aspnet/https:ro     
