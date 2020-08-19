@@ -1,6 +1,0 @@
-version: '3.4'
-
-services:
-  httpssample:
-    container_name: httpssample1
-    build: .      
