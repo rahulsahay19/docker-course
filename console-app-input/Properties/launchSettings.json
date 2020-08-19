@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "console-app-input": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
