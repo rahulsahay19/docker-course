@@ -4,16 +4,17 @@
 # when you've given us a try, we'd love to know what you think:
 #    https://aka.ms/AA7q20u
 #
-name: project-tye
+name: microservices
 services:
-- name: moviesapi
-  project: MoviesAPI/MoviesAPI.csproj
+- name: frontend
+  project: frontend/frontend.csproj
+- name: backend
+  project: backend/backend.csproj
+- name: redis
+  image: redis
   bindings:
-  - protocol: https
-    port: 5001
-  
-- name: moviesapp
-  dockerFile: MoviesApp/Dockerfile
-  bindings:
-  - protocol: http
-    port: 4400    
+  - port: 6379
+    connectionString: "${host}:${port}"
+- name: redis-cli
+  image: redis
+  args: "redis-cli -h redis MONITOR"
